@@ -1,20 +1,20 @@
 const db = {
     'user': [
-        { id: 1, name: 'Camilo Mora' },
+        { id: '1', name: 'Camilo Mora' },
     ],
 };
 
-function List(tabla){
+async function List(tabla){
     return db[tabla];
 }
 
-function Get(tabla, id) {
-    let colllection = list(tabla);
+async function Get(tabla, id) {
+    let colllection = await List(tabla);
     return colllection.filter(user => user.id === id)[0] || null;
 }
 
-function Update(data){
-    db[colllection].push(data);
+async function Update(table, data){
+    db[table].push(data);
 }
 
 module.exports = {
