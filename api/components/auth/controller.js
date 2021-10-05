@@ -1,4 +1,5 @@
 const auth = require('../../../auth');
+const bcrypt = require('bcrypt');
 const TABLE = 'auth';
 
 module.exports = function (storeDependecy) {
@@ -8,17 +9,19 @@ module.exports = function (storeDependecy) {
     }
 
     async function Login(username, password) {
-        console.log(username)
-        console.log(password)
+        
         const data = await store.Query(TABLE, { username: username });
-        if(data.password === password){
-            return auth.Sign(data);
-        } else {
-            throw new Error('Invalid information');
-        }
+        return bcrypt.compare(password, data.password ) 
+            .then(areEquals => {
+                if(areEquals === true) {
+                    return auth.Sign(data);
+                } else {
+                throw new Error('Invalid information');
+                }    
+            });
     }
 
-    function Update(data) {
+    async function Update(data) {
         const authData = {
             id: data.id,
         }
@@ -28,7 +31,7 @@ module.exports = function (storeDependecy) {
         }
 
         if(data.password) {
-            authData.password = data.password;
+            authData.password = await bcrypt.hash(data.password, 5);
         }
 
         return  store.Update(TABLE, authData);

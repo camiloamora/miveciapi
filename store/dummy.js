@@ -24,9 +24,7 @@ async function Update(table, data){
 async function Query(table, q) {
     let collection = await List(table);
     let keys = Object.keys(q);
-    console.log('keys',keys)
     let key = keys[0];
-    console.log(key)
 
     return collection.filter(user => user[key] === q[key])[0] || null;
 }
