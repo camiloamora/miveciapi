@@ -5,16 +5,13 @@ const controller = require('./index');
 
 const router = express.Router();
 
-router.post('/login', function (req, res) {
+router.post('/login', function (req, res, next) {
     controller.Login(req.body.username, req.body.password)
         .then(token => {
             console.log(token)
             response.success(req, res, token, 200);
         })
-        .catch(error => {
-            console.log(error)
-            response.error(req, res, 'Invalid information', 400);
-        })
+        .catch(next);
 })
 
 module.exports = router;
