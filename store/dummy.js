@@ -5,7 +5,7 @@ const db = {
 };
 
 async function List(tabla){
-    return db[tabla];
+    return db[tabla] || [];
 }
 
 async function Get(tabla, id) {
@@ -14,11 +14,26 @@ async function Get(tabla, id) {
 }
 
 async function Update(table, data){
+    if(!db[table]) {
+        db[table] = [];
+    }
+
     db[table].push(data);
+}
+
+async function Query(table, q) {
+    let collection = await List(table);
+    let keys = Object.keys(q);
+    console.log('keys',keys)
+    let key = keys[0];
+    console.log(key)
+
+    return collection.filter(user => user[key] === q[key])[0] || null;
 }
 
 module.exports = {
     List,
     Get,
-    Update
+    Update,
+    Query
 }
