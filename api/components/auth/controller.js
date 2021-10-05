@@ -14,7 +14,7 @@ module.exports = function (storeDependecy) {
         return bcrypt.compare(password, data.password ) 
             .then(areEquals => {
                 if(areEquals === true) {
-                    return auth.Sign(data);
+                    return auth.Sign({...data});
                 } else {
                 throw new Error('Invalid information');
                 }    

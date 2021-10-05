@@ -7,7 +7,7 @@ const controller =  require('../user/index');
 
 router.get('/', List);
 router.get('/:id', Get);
-router.post('/', Update);
+router.post('/', Insert);
 router.put('/', secure('update'), Update);
 
 function List(req, res, next) {
@@ -28,6 +28,14 @@ function Get(req, res, next) {
 
 function Update(req, res, next) {
     controller.Update(req.body)
+        .then((user) => {
+            response.success(req, res, user, 201);
+        })
+        .catch(next);
+}
+
+function Insert(req, res, next) {
+    controller.Create(req.body)
         .then((user) => {
             response.success(req, res, user, 201);
         })
