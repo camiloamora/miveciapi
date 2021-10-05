@@ -2,11 +2,16 @@ const mysql = require('mysql');
 
 const config = require('../config');
 
+const { NODE_ENV } = process.env;
+
+const database = NODE_ENV === 'test' ? 
+    config.mysql.databaseTest : config.mysql.database;
+
 const dbconf = {
     host: config.mysql.host,
     user: config.mysql.user,
     password: config.mysql.password,
-    database: config.mysql.database,
+    database: database,
     port: config.mysql.port,
     timeout: config.mysql.timeout
 };
@@ -49,8 +54,10 @@ function List(table) {
 }
 
 function Get(table, id) {
+    console.log('tabla', table);
+    console.log('id', id)
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (error, data) => {
+        connection.query(`SELECT * FROM ${table} WHERE id='${id}'`, (error, data) => {
             if (error) return reject(error);
             resolve(data);
         })

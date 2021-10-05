@@ -3,7 +3,7 @@ const express = require('express');
 const secure = require('./secure');
 const response = require('../../../network/response');
 const router = express.Router();
-const controller =  require('../user/index');
+const controller =  require('./index');
 
 router.get('/', List);
 router.get('/:id', Get);
