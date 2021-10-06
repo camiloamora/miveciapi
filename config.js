@@ -17,6 +17,8 @@ module.exports = {
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DB,
         port: process.env.MYSQL_PORT,
-        timeout: process.env.MYSQL_TIMEOUT
+        timeout: process.env.MYSQL_TIMEOUT,
+        databaseTest: process.env.MYSQL_DB_TEST,
+        hostTest: process.env.MYSQL_HOST_TEST
     },
 }

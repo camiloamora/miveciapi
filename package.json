@@ -4,11 +4,12 @@
   "description": "Proyecto para las historias de usuario de vecindario",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --verbose",
+    "test": "NODE_ENV=test jest --verbose --silent",
     "test:watch": "npm run test -- --watch",
     "dev": "NODE_ENV=development nodemon api/index.js",
     "prepare": "husky install",
-    "start": "NODE_ENV=production node index.js"
+    "start": "NODE_ENV=production node index.js",
+    "test:coverage": "npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
@@ -26,19 +27,24 @@
     "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jest": "^27.2.4",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nanoid": "^3.1.28",
-    "request": "^2.88.2",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^24.5.2",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "proxyquire": "^2.1.3",
+    "request": "^2.88.2",
+    "sinon": "^11.1.2",
+    "supertest": "^6.1.6"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"

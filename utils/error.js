@@ -1,11 +1,11 @@
-function Error(message, code) {
-    let err = new Error(message);
+function err(message, code) {
+    let e = new Error(message);
 
     if(code) {
-        err.statusCode = code;
+        e.statusCode = code;
     }
 
-    return err;
+    return e;
 }
 
-module.exports = Error;
+module.exports = err;

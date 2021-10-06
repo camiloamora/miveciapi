@@ -25,6 +25,14 @@ module.exports = function(storeDependency) {
             id: nanoid()
         }
 
+        if (body.password || body.username) {
+            await auth.Update({
+                id: user.id,
+                username: user.username,
+                password: body.password,
+            })
+        }
+
         return store.Insert(TABLE, user);
     }
 
@@ -46,10 +54,15 @@ module.exports = function(storeDependency) {
         return store.Update(TABLE, user);
     }
 
+    async function DeleteAll(TABLE) {
+        return store.DeleteAll(TABLE);
+    }
+
     return {
         List,
         Get,
         Create,
-        Update
+        Update,
+        DeleteAll
     }
 }

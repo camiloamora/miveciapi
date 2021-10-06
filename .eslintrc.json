@@ -6,9 +6,10 @@
       "eslint:recommended",
       "prettier"
     ],
+    "plugins": ["jest"],
     "env": {
       "es6": true,
       "node": true,
-      "mocha": true
+      "jest/globals": true
     }
   }

@@ -2,6 +2,9 @@ const db = {
     'user': [
         { id: '1', name: 'Camilo Mora' },
     ],
+    'auth': [
+        { id: '1', username: 'camiloamora', password:'123' }
+    ]
 };
 
 async function List(tabla){
@@ -19,6 +22,7 @@ async function Update(table, data){
     }
 
     db[table].push(data);
+    return true;
 }
 
 async function Query(table, q) {
@@ -26,12 +30,25 @@ async function Query(table, q) {
     let keys = Object.keys(q);
     let key = keys[0];
 
+    console.log('collection', collection)
     return collection.filter(user => user[key] === q[key])[0] || null;
+}
+
+async function Insert(table, data) {
+    console.log('table db',db[table])
+    db[table].push(data);
+    return data;
+}
+
+async function DeleteAll(table){
+    return db[table] = [];
 }
 
 module.exports = {
     List,
     Get,
     Update,
-    Query
+    Query,
+    Insert,
+    DeleteAll
 }

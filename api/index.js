@@ -21,6 +21,8 @@ app.use('/api/post', post);
 app.use('/apidoc', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(errors);
 
-app.listen(config.api.port, () => {
+const server = app.listen(config.api.port, () => {
     console.log('Api escuchando en el puerto ', config.api.port);
 })
+
+module.exports = { app, server}
