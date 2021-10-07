@@ -17,19 +17,32 @@ module.exports = function(storeDependency) {
         return store.Get(TABLE, id);
     }
 
+    async function Create(body) {
+        const user = {
+            name: body.name,
+            username: body.username,
+            email: body.email,
+            id: nanoid()
+        }
+
+        if (body.password || body.username) {
+            await auth.Update({
+                id: user.id,
+                username: user.username,
+                password: body.password,
+            })
+        }
+
+        return store.Insert(TABLE, user);
+    }
+
     async function Update(body) {
         const user = {
             name: body.name,
             username: body.username,
-            email: body.email
+            email: body.email,
         }
-
-        if(body.id) {
-            user.id = body.id;
-        } else {
-            user.id = nanoid();
-        }
-
+        
         if(body.password || body.username) {
             await auth.Update({
                 id: user.id,
@@ -41,9 +54,15 @@ module.exports = function(storeDependency) {
         return store.Update(TABLE, user);
     }
 
+    async function DeleteAll(TABLE) {
+        return store.DeleteAll(TABLE);
+    }
+
     return {
         List,
         Get,
-        Update
+        Create,
+        Update,
+        DeleteAll
     }
 }

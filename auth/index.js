@@ -9,7 +9,7 @@ function Sign(data) {
 }
 
 function Verify(token){
-    return jwt.sign(token, secret);
+    return jwt.verify(token, secret);
 }
 
 const Check = {
@@ -19,7 +19,15 @@ const Check = {
         if(decode.id !== owner) {
             throw error('You can`t do this', 401);
         }
-    }
+    },
+
+    logged: function(req) {
+        const decoded = DecodeHeader(req);
+        
+        if(decoded.id === undefined) {
+            throw error('You can`t do this', 401);
+        }
+    },
 }
 
 function GetToken(auth) {

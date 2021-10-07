@@ -6,12 +6,10 @@
       "eslint:recommended",
       "prettier"
     ],
+    "plugins": ["jest"],
     "env": {
       "es6": true,
       "node": true,
-      "mocha": true
-    },
-    "rules": {
-      "no-console": "warn"
+      "jest/globals": true
     }
   }
