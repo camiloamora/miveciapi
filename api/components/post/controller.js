@@ -22,21 +22,27 @@ module.exports = function (storeDependecy) {
 
     async function Update(data, user){
         const post = {
-            id: data.id,
+            name: data.name,
+            content: data.content,
+            createat: new Date(),
             user: user,
-            text: data.text
         }
 
         if(!post.id){
             post.id = nanoid();
         }
+
+        return store.Insert(TABLE, post);
     }
 
     async function Like(post, user){
-        const like = await store.Update(TABLE + '_like', {
-            post: post,
+        const like = await store.Insert(TABLE + '_like', {
+            id: nanoid(),
             user: user,
+            createat: new Date(),
+            post: post,
         });
+
         return like;
     }
 

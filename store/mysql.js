@@ -19,7 +19,6 @@ const dbconf = {
 let connection;
 
 function HandleConnection() {
-    console.log(dbconf);
     connection = mysql.createConnection(dbconf);
 
     connection.connect((err) => {
@@ -54,8 +53,6 @@ function List(table) {
 }
 
 function Get(table, id) {
-    console.log('tabla', table);
-    console.log('id', id)
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} WHERE id='${id}'`, (error, data) => {
             if (error) return reject(error);
@@ -96,7 +93,7 @@ function Query(table, query, join = null) {
             joinQuery+= `JOIN ${key} ON ${table}.${from} = ${key}.${to}`;
         })
     }
-    console.log( 'antes del join', (`${table}, ${JSON.stringify(query)}, ${joinQuery}`));
+    
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} ${joinQuery} WHERE ?`, query,  (error, data) => {
             if (error) return reject(error);

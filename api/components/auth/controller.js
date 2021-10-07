@@ -13,14 +13,12 @@ module.exports = function (storeDependecy) {
         
         const data = await store.Query(TABLE, { username: username });
         const userData = {...data}
-        console.log('pass', userData.password)
         if(userData.password === undefined) {
             throw new error('Invalid information');
         }
 
         return bcrypt.compare(password, userData.password)
         .then(areEquals => {
-            console.log(areEquals)
             if(areEquals === true) {
                 return auth.Sign(JSON.parse(JSON.stringify(data)));
             } else {

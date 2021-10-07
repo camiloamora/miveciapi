@@ -3,14 +3,16 @@ const express = require('express');
 const response = require('../../../network/response');
 const controller = require('./index');
 
+const auth = require('./secure');
+
 const router = express.Router();
 
 router.get('/', List);
 router.get('/:id', Get);
 router.get('/like', PostLiked);
 router.get('/id:/like', PostLikers);
-router.post('/', Update);
-router.post('/:id/like', Like);
+router.post('/', auth('add',), Update);
+router.post('/:id/like', auth('add'), Like);
 
 function List(req, res, next) {
     controller.List()
@@ -45,7 +47,7 @@ function PostLikers(req, res, next) {
 }
 
 function Like(req, res, next) {
-    controller.Like(req.params.id, req.user.sub)
+    controller.Like(req.params.id, req.user.id)
         .then(post => {
             response.success(req, res, post, 201);
         })
