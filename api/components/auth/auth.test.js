@@ -1,15 +1,15 @@
-const controller = require('../api/components/auth/controller');
-const controllerUser = require('../api/components/user/controller');
-const store = require('../store/dummy');
+const controller = require('./controller');
+const controllerUser = require('../user/controller');
+const store = require('../../../store/dummy');
 
-describe('Validate operations controller auth', () => {
+describe('Auth component -> adding new user', () => {
     const user = {
         "name": "Taylor Carlson",
         "username": "taylor",
         "email": "taylor.carlson@example.com",
         "password": "shuai"
     }
-    
+
     beforeAll(() => {
         const table = 'user';
         const tableAuth = 'auth';
@@ -17,7 +17,7 @@ describe('Validate operations controller auth', () => {
         controllerUser(store).DeleteAll(tableAuth);
     })
 
-    it('Login user with username and password', async () => {
+    it('Login user with username and password when is correct', async () => {
         return controllerUser(store).Create(user)
         .then(data => {
             controller(store).Login(data.username, data.password)

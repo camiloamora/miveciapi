@@ -10,7 +10,7 @@ module.exports = function (storeDependecy) {
     }
 
     async function Login(username, password) {
-        
+
         const data = await store.Query(TABLE, { username: username });
         const userData = {...data}
         if(userData.password === undefined) {

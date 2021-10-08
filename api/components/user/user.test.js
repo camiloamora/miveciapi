@@ -1,7 +1,7 @@
-const controller = require('../api/components/user/controller');
-const store = require('../store/dummy');
+const controller = require('./controller');
+const store = require('../../../store/dummy');
 
-describe('Validate operations controller user', () => {
+describe('Validate user operations', () => {
 
     const user = {
         "name": "Taylor Carlson",
