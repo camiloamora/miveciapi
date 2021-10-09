@@ -16,7 +16,7 @@ const swaggerDoc = require('./swagger.json');
 app.use(bodyParser.json());
 
 // ROUTER
-app.use(cors);
+app.use(cors());
 
 app.use('/api/user', user);
 app.use('/api/auth', auth);
